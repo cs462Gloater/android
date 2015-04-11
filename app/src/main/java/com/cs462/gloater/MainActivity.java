@@ -3,6 +3,7 @@ package com.cs462.gloater;
 import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,10 +15,15 @@ import android.widget.EditText;
 
 public class MainActivity extends ActionBarActivity {
 
+    private String deviceID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TelephonyManager tManager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+        this.deviceID = tManager.getDeviceId();
+        this.getApplication().onCreate();
         ((EditText) findViewById(R.id.username)).setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == 66) { // this is the return key
@@ -51,21 +57,23 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
     public void gloat(View v) {
+
+        boolean awsPublicIpDefined = null != Constants.AWS_PUBLIC_IP_ADDRESS &&
+                !"".equalsIgnoreCase(Constants.AWS_PUBLIC_IP_ADDRESS.trim());
+
+        if (!awsPublicIpDefined) {
+            System.err.println("The AWS IP address is not defined!");
+        }
+
         EditText editText = (EditText) findViewById(R.id.username);
         hideKeyboard(editText);
 
         String username = editText.getText().toString();
-        System.out.println(username);
-        AsyncSummonerIdFetcher idFetcher = new AsyncSummonerIdFetcher(username);
+        AsyncSummonerIdFetcher idFetcher = new AsyncSummonerIdFetcher(username, deviceID);
         idFetcher.execute();
     }
 }
