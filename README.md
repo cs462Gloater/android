@@ -1,2 +1,2 @@
 # android
-In the AsyncSummonerIdFetcher class, be sure to define a valid value for the developerApiKey variable, and don't ever commit the actual value.
+Make sure to replace the SECRETn values in the Constants class, and to insert the aws public IP address in the same class to get the app to work!
