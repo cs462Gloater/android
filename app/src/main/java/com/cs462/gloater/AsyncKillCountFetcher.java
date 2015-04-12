@@ -52,7 +52,7 @@ public class AsyncKillCountFetcher extends AsyncTask<Void, Void, String> {
             String killCount = mainObject.getString("totalChampionKills");
 
             // Now that we have the username and kill count, send off the information to the server in another asynchronous task.
-            AsyncServerNotifier serverNotifier = new AsyncServerNotifier(username, killCount, deviceID);
+            //AsyncServerNotifier serverNotifier = new AsyncServerNotifier(username, killCount, deviceID);
             // TODO uncomment this next line when ready to test with the server:
             // serverNotifier.execute();
 

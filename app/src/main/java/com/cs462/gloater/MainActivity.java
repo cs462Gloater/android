@@ -73,7 +73,8 @@ public class MainActivity extends ActionBarActivity {
         hideKeyboard(editText);
 
         String username = editText.getText().toString();
-        AsyncSummonerIdFetcher idFetcher = new AsyncSummonerIdFetcher(username, deviceID);
-        idFetcher.execute();
+        //AsyncSummonerIdFetcher idFetcher = new AsyncSummonerIdFetcher(username, deviceID);
+        //idFetcher.execute();
+        AsyncServerNotifier serverNotifier = new AsyncServerNotifier(username);
     }
 }

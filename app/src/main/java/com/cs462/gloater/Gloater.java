@@ -23,16 +23,16 @@ public class Gloater extends Application {
         super.onCreate();
         singleton = this;
 
-        boolean secretsReplaced = !"SECRET1".equalsIgnoreCase(Constants.PRIVATE_APPLICATION_ID) &&
+        boolean secretsReplaced = !"SECRET1".equalsIgnoreCase(Constants.PRIVATE_APPLICATION_ID); /*&&
                 !"SECRET2".equalsIgnoreCase(Constants.PRIVATE_CLIENT_KEY) &&
-                !"SECRET3".equalsIgnoreCase(Constants.PRIVATE_RIOT_DEVELOPER_API_KEY);
+                !"SECRET3".equalsIgnoreCase(Constants.PRIVATE_RIOT_DEVELOPER_API_KEY);*/
 
         if (!secretsReplaced) {
             System.err.println("You must replace key values in the Constants class where you see \"SECRETn\"");
             return;
         } else {
             Parse.initialize(this, Constants.PRIVATE_APPLICATION_ID, Constants.PRIVATE_CLIENT_KEY);
-            ParsePush.subscribeInBackground("Everyone", new SaveCallback() {
+            ParsePush.subscribeInBackground(Constants.PARSE_CHANNEL, new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {

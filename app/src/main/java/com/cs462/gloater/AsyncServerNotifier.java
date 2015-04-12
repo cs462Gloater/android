@@ -14,18 +14,18 @@ import java.io.InputStream;
  */
 public class AsyncServerNotifier extends AsyncTask<Void, Void, Void> {
 
-    private final String POST_GLOAT_I = "http://" + Constants.AWS_PUBLIC_IP_ADDRESS + "/gloater?username=";
-    private final String POST_GLOAT_II = "&deviceid=";
-    private final String POST_GLOAT_III = "&killcount=";
+    private final String POST_GLOAT_I = "http://" + Constants.AWS_PUBLIC_IP_ADDRESS + "/gloat?username=";
+    //private final String POST_GLOAT_II = "&deviceid=";
+    //private final String POST_GLOAT_III = "&killcount=";
 
     private String username;
-    private String killCount;
-    private String deviceID;
+    //private String killCount;
+    //private String deviceID;
 
-    public AsyncServerNotifier(String username, String killCount, String deviceID) {
+    public AsyncServerNotifier(String username) {
         this.username = username.trim();
-        this.killCount = killCount;
-        this.deviceID = deviceID;
+        //this.killCount = killCount;
+        //this.deviceID = deviceID;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AsyncServerNotifier extends AsyncTask<Void, Void, Void> {
             String result = "";
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(POST_GLOAT_I + username.replace(" ", "%20") + POST_GLOAT_II + deviceID + POST_GLOAT_III + killCount);
+            HttpPost httpPost = new HttpPost(POST_GLOAT_I + username.replace(" ", "%20"));
             httpClient.execute(httpPost);
 
         } catch (Exception e) {
