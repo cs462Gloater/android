@@ -14,7 +14,7 @@ public class Constants {
 
     public static final String PRIVATE_CLIENT_KEY = "SECRET2";
 
-    //public static final String PRIVATE_RIOT_DEVELOPER_API_KEY = "SECRET3";
+    public static final String PRIVATE_RIOT_DEVELOPER_API_KEY = "SECRET3";
 
     public static final String PARSE_CHANNEL = "Everyone";
 
