@@ -23,8 +23,8 @@ public class Gloater extends Application {
         super.onCreate();
         singleton = this;
 
-        boolean secretsReplaced = !"SECRET1".equalsIgnoreCase(Constants.PRIVATE_APPLICATION_ID); /*&&
-                !"SECRET2".equalsIgnoreCase(Constants.PRIVATE_CLIENT_KEY) &&
+        boolean secretsReplaced = !"SECRET1".equalsIgnoreCase(Constants.PRIVATE_APPLICATION_ID) &&
+                !"SECRET2".equalsIgnoreCase(Constants.PRIVATE_CLIENT_KEY); /*&&
                 !"SECRET3".equalsIgnoreCase(Constants.PRIVATE_RIOT_DEVELOPER_API_KEY);*/
 
         if (!secretsReplaced) {

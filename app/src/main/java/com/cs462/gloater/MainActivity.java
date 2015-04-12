@@ -76,5 +76,6 @@ public class MainActivity extends ActionBarActivity {
         //AsyncSummonerIdFetcher idFetcher = new AsyncSummonerIdFetcher(username, deviceID);
         //idFetcher.execute();
         AsyncServerNotifier serverNotifier = new AsyncServerNotifier(username);
+        serverNotifier.execute();
     }
 }
