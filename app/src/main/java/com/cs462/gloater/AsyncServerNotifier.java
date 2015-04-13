@@ -23,7 +23,7 @@ public class AsyncServerNotifier extends AsyncTask<Void, Void, Void> {
     //private String deviceID;
 
     public AsyncServerNotifier(String username) {
-        this.username = username.trim();
+        this.username = username.toLowerCase().replaceAll("\\s+", "");;
         //this.killCount = killCount;
         //this.deviceID = deviceID;
     }
@@ -36,7 +36,7 @@ public class AsyncServerNotifier extends AsyncTask<Void, Void, Void> {
             String result = "";
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(POST_GLOAT_I + username.replace(" ", "%20"));
+            HttpPost httpPost = new HttpPost(POST_GLOAT_I + username);
             httpClient.execute(httpPost);
 
         } catch (Exception e) {
