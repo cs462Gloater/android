@@ -1,6 +1,7 @@
 package com.cs462.gloater;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -16,6 +17,8 @@ import android.widget.EditText;
 public class MainActivity extends ActionBarActivity {
 
     private String deviceID;
+    private EditText usernameInput;
+    private static final String usernameKey = "USERNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,8 @@ public class MainActivity extends ActionBarActivity {
         TelephonyManager tManager = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
         this.deviceID = tManager.getDeviceId();
         this.getApplication().onCreate();
-        ((EditText) findViewById(R.id.username)).setOnKeyListener(new View.OnKeyListener() {
+        usernameInput = (EditText) findViewById(R.id.username);
+        usernameInput.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == 66) { // this is the return key
                     hideKeyboard(v);
@@ -35,6 +39,10 @@ public class MainActivity extends ActionBarActivity {
                 return false;
             }
         });
+        String savedUsername = getPreferences(Context.MODE_PRIVATE).getString(usernameKey, "");
+        if(!"".equals(savedUsername)) {
+            usernameInput.setText(savedUsername);
+        }
     }
 
     private void hideKeyboard(View v) {
@@ -69,10 +77,13 @@ public class MainActivity extends ActionBarActivity {
             System.err.println("The AWS IP address is not defined!");
         }
 
-        EditText editText = (EditText) findViewById(R.id.username);
-        hideKeyboard(editText);
+        //EditText editText = (EditText) findViewById(R.id.username);
+        hideKeyboard(usernameInput);
 
-        String username = editText.getText().toString();
+        String username = usernameInput.getText().toString();
+        SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
+        editor.putString(usernameKey, username);
+        editor.commit();
         //AsyncSummonerIdFetcher idFetcher = new AsyncSummonerIdFetcher(username, deviceID);
         //idFetcher.execute();
         AsyncServerNotifier serverNotifier = new AsyncServerNotifier(username);
